@@ -31,6 +31,9 @@ url = 'https://gotify.chalmers.it/mail'
 
 
 def send_email(email, user_codes):
+    if not email:
+        return
+
     post_fields = {
         "to": email,
         "from": "no-replay@chalmers.it",
