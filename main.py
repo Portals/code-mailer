@@ -22,6 +22,8 @@ with open('ban.txt') as f:
 
 toSendEmail = [email for email in inputEmails if email not in sentEmails and email not in bannedEmails]
 
+errors = []
+
 if not debug:
     with open('input.txt', 'w') as f:
         f.write('')
@@ -50,6 +52,7 @@ def send_email(email, user_codes):
             print('{} failed to send code to. Code {}.'.format(email, response.status_code))
             print('Readding codes to codes...')
             codes.append(user_codes)
+            errors.append(email)
         else:
             print('{} was sent codes'.format(email))
 
@@ -61,6 +64,10 @@ if not debug:
     with open('sent.txt', 'a') as f:
         for email in toSendEmail:
             f.write("\n{}".format(email))
+
+with open('errors.txt', 'a') as f:
+    for email in errors:
+        f.write("\n{}".format(email))
 
 new_codes = {
     "codes": codes
