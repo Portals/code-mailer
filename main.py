@@ -21,7 +21,6 @@ with open('ban.txt') as f:
     bannedEmails = [line.rstrip() for line in f]
 
 toSendEmail = [email for email in inputEmails if email not in sentEmails and email not in bannedEmails]
-allSentEmails = toSendEmail + sentEmails
 
 if not debug:
     with open('input.txt', 'w') as f:
@@ -59,9 +58,9 @@ for email in toSendEmail:
     send_email(email, codes.pop(0))
 
 if not debug:
-    with open('sent.txt', 'w') as f:
-        for email in allSentEmails:
-            f.write("{}\n".format(email))
+    with open('sent.txt', 'a') as f:
+        for email in toSendEmail:
+            f.write("\n{}".format(email))
 
 new_codes = {
     "codes": codes
