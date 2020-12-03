@@ -17,7 +17,10 @@ with open('input.txt') as f:
 with open('sent.txt') as f:
     sentEmails = [line.rstrip() for line in f]
 
-toSendEmail = [email for email in inputEmails if email not in sentEmails]
+with open('ban.txt') as f:
+    bannedEmails = [line.rstrip() for line in f]
+
+toSendEmail = [email for email in inputEmails if email not in sentEmails and email not in bannedEmails]
 allSentEmails = toSendEmail + sentEmails
 
 if not debug:
